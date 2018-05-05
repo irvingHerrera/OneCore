@@ -1,0 +1,19 @@
+﻿
+@{
+    Layout = "_LayoutLogin";
+    ViewData["Title"] = "Login";
+}
+<div class="row">
+    <div class="col-12">
+        <form class="form-signin" novalidate>
+            <h1 class="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
+            <label for="inputUser" class="sr-only">Usuario</label>
+            <input type="text" id="inputUser" class="form-control mb-3" placeholder="Usuario" required autofocus>
+            <label for="inputPassword" class="sr-only">Contraseña</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+            <label for="inputPassword" class="">Contraseña</label>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
+            <p class="mt-1 mb-3 text-muted">¿No tienes una cuenta? <a href="@Url.Action("SingUp","Account")">¡Registrar aquí!</a></p>
+        </form>
+    </div>
+</div>
