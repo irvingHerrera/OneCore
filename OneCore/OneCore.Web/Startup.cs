@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OneCore.Business;
+using OneCore.Business.ContractBusiness;
+using OneCore.Data.Repository;
+using OneCore.Data.RepositoryContract;
 
 namespace OneCore.Web
 {
@@ -21,6 +21,8 @@ namespace OneCore.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUnityOfWork, UnityOfWork>();
+            services.AddScoped<IUserBusiness, UserBusiness>();
             services.AddMvc();
         }
 
