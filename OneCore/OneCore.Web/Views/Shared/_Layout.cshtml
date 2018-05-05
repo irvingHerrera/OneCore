@@ -9,7 +9,7 @@
     <link href="~/css/lib.min.css" rel="stylesheet" />
 
 </head>
-<body>
+<body data-ng-app="app">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="#">OneCore</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +31,7 @@
             <div class="dropdown-divider"></div>
             <ul class="navbar-nav navbar-right">
                 <li class="nav-item">
-                   <span class="nav-link text-white">Usuario</span>
+                    <span class="nav-link text-white">Usuario</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Cerrar sesíon</a>
@@ -51,6 +51,7 @@
 
     <script src="~/js/lib.min.js"></script>
     <script src="~/js/site.min.js"></script>
+    <script src="~/app/app.module.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

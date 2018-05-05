@@ -10,12 +10,13 @@
     <link href="~/css/login.css" rel="stylesheet" />
 
 </head>
-<body>
+<body data-ng-app="app">
     <div class="container body-content">
         @RenderBody()
     </div>
     <script src="~/js/lib.min.js"></script>
     <script src="~/js/site.min.js"></script>
+    <script src="~/app/app.module.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
