@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = "_LayoutLogin";
+    ViewData["Title"] = "Registro";
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <form class="form-signin" novalidate>
+            <h1 class="h3 mb-3 font-weight-normal">Registro</h1>
+            <label for="inputUser" class="sr-only">Usuario</label>
+            <input type="text" id="inputUser" class="form-control mb-3" placeholder="Usuario" required autofocus>
+            <label for="inputEmail" class="sr-only">Contraseña</label>
+            <input type="password" id="inputPassword" class="form-control mb-3" placeholder="Correo" required>
+            <label for="inputPassword" class="sr-only">Contraseña</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+            <label class="mbb-3">Genero</label>
+            <br />
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="checkMan" name="checkSex" class="custom-control-input">
+                <label class="custom-control-label" for="checkMan">Hombre</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline mb-3">
+                <input type="radio" id="checkWoman" name="checkSex" class="custom-control-input">
+                <label class="custom-control-label" for="checkWoman">Mujer</label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+        </form>
+    </div>
+</div>
+

@@ -9,7 +9,7 @@
     "outputFileName": "wwwroot/css/lib.min.css",
     "inputFiles": [
       "wwwroot/css/lib.css",
-      "node_modules/bootstrap/dist/css/bootstrap.css",
+      "node_modules/bootstrap/dist/css/bootstrap.min.css",
       "wwwroot/js/plugin/angular-confirm/angular-confirm.min.css"
     ]
   },
@@ -28,6 +28,7 @@
     "inputFiles": [
       "wwwroot/js/lib.js",
       "node_modules/jquery/dist/jquery.js",
+      "wwwroot/js/plugin/popper.min.js",
       "node_modules/bootstrap/dist/js/bootstrap.js",
       "node_modules/angular/angular.js",
       "node_modules/angular-auto-validate/dist/jcs-auto-validate.js",
