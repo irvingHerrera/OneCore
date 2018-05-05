@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneCore.Web", "OneCore.Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneCore.Core", "OneCore.Core\OneCore.Core.csproj", "{8857852C-B976-4387-B071-1D75087C0DFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneCore.Data", "OneCore.Data\OneCore.Data.csproj", "{6C5D4DAE-D2F2-452D-B96E-485C8513F474}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8857852C-B976-4387-B071-1D75087C0DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8857852C-B976-4387-B071-1D75087C0DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8857852C-B976-4387-B071-1D75087C0DFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C5D4DAE-D2F2-452D-B96E-485C8513F474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C5D4DAE-D2F2-452D-B96E-485C8513F474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C5D4DAE-D2F2-452D-B96E-485C8513F474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C5D4DAE-D2F2-452D-B96E-485C8513F474}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
