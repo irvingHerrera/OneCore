@@ -15,7 +15,7 @@ namespace OneCore.Data.Entities
     public partial class User
     {
         public int id { get; set; }
-        public string user1 { get; set; }
+        public string userSystem { get; set; }
         public string email { get; set; }
         public string password { get; set; }
         public Nullable<bool> status { get; set; }

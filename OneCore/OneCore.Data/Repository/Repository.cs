@@ -12,12 +12,12 @@ namespace OneCore.Data.Repository
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected OneCoreEntities context;
-        protected DbSet<TEntity> dbset;
+        protected Microsoft.EntityFrameworkCore.DbSet<TEntity> dbset;
 
         public Repository(OneCoreEntities context)
         {
-            this.context = new OneCoreEntities();
-            this.dbset = context.Set<TEntity>();
+            this.context = context;
+            dbset = context.Set<TEntity>();
         }
 
         public void Add(TEntity entity)
@@ -44,7 +44,7 @@ namespace OneCore.Data.Repository
         public void Update(TEntity entityToUpdate)
         {
             dbset.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            context.Entry(entityToUpdate).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
     }
 }

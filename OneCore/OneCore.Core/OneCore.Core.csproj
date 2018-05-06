@@ -43,6 +43,7 @@
     <Compile Include="Enum\Status.cs" />
     <Compile Include="Enum\Gender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\ResponseViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup />

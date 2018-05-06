@@ -5,10 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using OneCore.Business;
 using OneCore.Business.ContractBusiness;
+using OneCore.Data.Context;
 using OneCore.Data.Repository;
 using OneCore.Data.RepositoryContract;
 
@@ -28,7 +32,16 @@ namespace OneCore.Web
         {
             services.AddScoped<IUnityOfWork, UnityOfWork>();
             services.AddScoped<IUserBusiness, UserBusiness>();
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(options =>
+            {
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                //options.SerializerSettings.Converters.Add(new DateTimeJsonConverter());
+            }); ;
+
+            services.AddDbContext<OneCoreEntities>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("OneCoreEntities")));
 
             services.AddDistributedMemoryCache();
 
@@ -42,9 +55,9 @@ namespace OneCore.Web
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/home/Index";
-                    options.LogoutPath = "/home/Index";
-                    options.AccessDeniedPath = "/Home/Error/";
+                    options.LoginPath = "/Account/Login";
+                    options.LogoutPath = "/Account/Login";
+                    options.AccessDeniedPath = "/Account/Error/";
                 });
         }
 

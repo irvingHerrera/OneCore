@@ -6,28 +6,48 @@
 
 
 <div class="row">
-    <div class="col-12">
+    <div class="col-12" data-ng-controller="singup-home">
         <form class="form-signin" novalidate>
             <h1 class="h3 mb-3 font-weight-normal">Registro</h1>
+
             <label for="inputUser" class="sr-only">Usuario</label>
-            <input type="text" id="inputUser" class="form-control mb-3" placeholder="Usuario" required autofocus>
-            <label for="inputEmail" class="sr-only">Contraseña</label>
-            <input type="text" id="inputEmail" class="form-control mb-3" placeholder="Correo" required>
+            <input type="text" id="inputUser" class="form-control mb-3"
+                   placeholder="Usuario"
+                   required autofocus
+                   data-ng-model="modelRegistry.User">
+
+            <label for="inputEmail" class="sr-only">Correo</label>
+            <input type="text" id="inputEmail"
+                   class="form-control mb-3"
+                   placeholder="Correo" required
+                   data-ng-model="modelRegistry.Email">
+
             <label for="inputPassword" class="sr-only">Contraseña</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+            <input type="password" id="inputPassword"
+                   class="form-control"
+                   placeholder="Contraseña" required
+                   data-ng-model="modelRegistry.Password">
+
             <label class="mbb-3">Genero</label>
             <br />
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="checkMan" name="checkSex" class="custom-control-input">
+                <input type="radio" id="checkMan" name="checkSex" class="custom-control-input"
+                       data-ng-click="modelRegistry.Gender = @((int)Gender.Male)">
                 <label class="custom-control-label" for="checkMan">Hombre</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline mb-3">
-                <input type="radio" id="checkWoman" name="checkSex" class="custom-control-input">
+                <input type="radio" id="checkWoman" name="checkSex" class="custom-control-input"
+                       data-ng-click="modelRegistry.Gender = @((int)Gender.Female)">
                 <label class="custom-control-label" for="checkWoman">Mujer</label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
+
+            <button class="btn btn-lg btn-primary btn-block" type="button" data-ng-click="registry()">Enviar</button>
 
         </form>
     </div>
 </div>
 
+@section Scripts{
+    <script src="~/app/service/app.accountService.js"></script>
+    <script src="~/app/view/Account/singup.account.js"></script>
+}

@@ -11,9 +11,9 @@ namespace OneCore.Data.Repository
         private readonly OneCoreEntities context;
         private IRepository<User> _user;
 
-        public UnityOfWork()
+        public UnityOfWork(OneCoreEntities context)
         {
-            this.context = new OneCoreEntities();
+            this.context = context;
         }
 
         public IRepository<User> User

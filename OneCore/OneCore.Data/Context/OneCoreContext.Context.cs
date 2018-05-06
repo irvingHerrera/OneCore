@@ -9,23 +9,20 @@
 
 namespace OneCore.Data.Context
 {
+    using Microsoft.EntityFrameworkCore;
     using OneCore.Data.Entities;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OneCoreEntities : DbContext
+    public partial class OneCoreEntities : Microsoft.EntityFrameworkCore.DbContext
     {
-        public OneCoreEntities()
-            : base("name=OneCoreEntities")
+        public OneCoreEntities(DbContextOptions<OneCoreEntities> options)
+            : base(options)
         {
         }
+   
     
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
-        public virtual DbSet<User> User { get; set; }
+        public virtual Microsoft.EntityFrameworkCore.DbSet<User> User { get; set; }
     }
 }
