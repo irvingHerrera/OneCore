@@ -248,8 +248,8 @@
             'defaultErrorMessageResolver', '$ngConfirm', '$rootScope',
             function (defaultErrorMessageResolver, $ngConfirm, $rootScope) {
                 // To change the root resource file path
-                //defaultErrorMessageResolver.setI18nFileRootPath('some/path);
-               // defaultErrorMessageResolver.setCulture('es-CO');
+                defaultErrorMessageResolver.setI18nFileRootPath('/js/plugin/angular-auto-validate/lang');
+                defaultErrorMessageResolver.setCulture('es-CO');
 
 
                 $rootScope.$confirm = function (option) {

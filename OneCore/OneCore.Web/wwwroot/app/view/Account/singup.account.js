@@ -10,7 +10,32 @@
     function singup($scope, $accountService) {
 
         var vm = $scope;
-        vm.modelRegistry = {}
+        vm.formRegistre = {};
+        vm.modelRegistry = {};
+
+        //validar que las contraseñas sean iguales
+        vm.$watchGroup(['modelRegistry.Password',
+            'modelRegistry.ConfirmPassword'], (array) => {
+
+                if (array[0] || array[1])
+                    vm.modelRegistry.isPasswordValid = true;
+                else
+                    vm.formRegistre.$valid = false;
+
+                if (array[0] && array[1]) {
+                    if (array[0] === array[1])
+                        vm.modelRegistry.isPasswordValid = false;
+                    else
+                        vm.formRegistre.$valid = false;
+                }
+
+            });
+
+
+        vm.validarGender = (valueCheck) => {
+            vm.modelRegistry.Gender = valueCheck;
+            vm.modelRegistry.CheckGender = true;
+        };
 
         vm.registry = () => {
             console.log("vm.modelRegistry", vm.modelRegistry);
@@ -35,14 +60,10 @@
                             confirm: true,
                             content: data.data.Message,
                             ok: () => {
-
-
                                 $scope.$apply(() => {
                                     vm.modelRegistry = {};
                                     vm.formRegistre.$setPristine();
                                 });
-
-
                             }
                         });
                     }

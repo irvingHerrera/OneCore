@@ -7,41 +7,71 @@
 
 <div class="row">
     <div class="col-12" data-ng-controller="singup-home">
-        <form class="form-signin" novalidate>
+        <form name="formRegistre" class="form-signin" data-ng-submit="registry()" novalidate>
             <h1 class="h3 mb-3 font-weight-normal">Registro</h1>
 
-            <label for="inputUser" class="sr-only">Usuario</label>
-            <input type="text" id="inputUser" class="form-control mb-3"
-                   placeholder="Usuario"
-                   required autofocus
-                   data-ng-model="modelRegistry.User">
+            <div class="form-group">
+                <input hidden required data-ng-model="modelRegistry.CheckGender" />
+                <label for="inputUser" class="sr-only">Usuario</label>
+                <input type="text" id="inputUser" class="form-control mb-3"
+                       placeholder="Usuario"
+                       required autofocus
+                       data-ng-minlength="5"
+                       data-ng-maxlength="7"
+                       data-ng-model="modelRegistry.User">
+            </div>
 
-            <label for="inputEmail" class="sr-only">Correo</label>
-            <input type="text" id="inputEmail"
-                   class="form-control mb-3"
-                   placeholder="Correo" required
-                   data-ng-model="modelRegistry.Email">
+            <div class="form-group">
+                <label for="inputEmail" class="sr-only">Correo</label>
+                <input type="text" id="inputEmail"
+                       class="form-control mb-3"
+                       placeholder="Correo" required
+                       data-email
+                       data-ng-minlength="5"
+                       data-ng-maxlength="15"
+                       data-ng-model="modelRegistry.Email">
+            </div>
 
-            <label for="inputPassword" class="sr-only">Contraseña</label>
-            <input type="password" id="inputPassword"
-                   class="form-control"
-                   placeholder="Contraseña" required
-                   data-ng-model="modelRegistry.Password">
+            <div class="form-group">
+                <label for="inputPassword" class="sr-only">Contraseña</label>
+                <input type="text" id="inputPassword"
+                       class="form-control"
+                       data-ng-minlength="5"
+                       data-ng-maxlength="10"
+                       data-password
+                       placeholder="Contraseña" required
+                       data-ng-model="modelRegistry.Password">
+            </div>
+
+            <div class="form-group">
+                <input hidden required data-ng-model="modelRegistry.isPasswordValid" />
+                <label for="inputConfirmPassword" class="sr-only">Confirmar contraseña</label>
+                <input type="password" id="inputConfirmPassword"
+                       class="form-control"
+                       placeholder="Confirmar contraseña" required
+                       data-ng-minlength="5"
+                       data-ng-maxlength="10"
+                       data-password
+                       data-ng-model="modelRegistry.ConfirmPassword">
+            </div>
+            <span data-ng-cloak data-ng-if="modelRegistry.isPasswordValid" 
+                  class="has-error error-msg mb-1" style="display:block;color:red">Las contraseñas deben ser iguales</span>
 
             <label class="mbb-3">Genero</label>
             <br />
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" id="checkMan" name="checkSex" class="custom-control-input"
-                       data-ng-click="modelRegistry.Gender = @((int)Gender.Male)">
+                       data-ng-click="validarGender(@((int)Gender.Male))">
                 <label class="custom-control-label" for="checkMan">Hombre</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline mb-3">
                 <input type="radio" id="checkWoman" name="checkSex" class="custom-control-input"
-                       data-ng-click="modelRegistry.Gender = @((int)Gender.Female)">
+                       data-ng-click="validarGender(@((int)Gender.Female))">
                 <label class="custom-control-label" for="checkWoman">Mujer</label>
             </div>
 
-            <button class="btn btn-lg btn-primary btn-block" type="button" data-ng-click="registry()">Enviar</button>
+
+            <button class="btn btn-lg btn-primary btn-block" data-ng-disabled="!formRegistre.$valid" type="submit">Enviar</button>
 
         </form>
     </div>
