@@ -31,10 +31,10 @@
             <div class="dropdown-divider"></div>
             <ul class="navbar-nav navbar-right">
                 <li class="nav-item">
-                    <span class="nav-link text-white">Usuario</span>
+                    <span class="nav-link text-white">@ViewContext.HttpContext.User.Identity.Name</span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Cerrar sesíon</a>
+                    <a class="nav-link" href="@Url.Action("Logout","Account")">Cerrar sesíon</a>
                 </li>
             </ul>
         </div>
@@ -53,6 +53,7 @@
     <script src="~/js/site.min.js"></script>
     <script src="~/app/app.module.js"></script>
     <script src="~/app/app.directives.js"></script>
+    <script src="~/app/app.tools.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

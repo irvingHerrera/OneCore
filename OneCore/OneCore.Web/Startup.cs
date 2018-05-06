@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ using OneCore.Business.ContractBusiness;
 using OneCore.Data.Context;
 using OneCore.Data.Repository;
 using OneCore.Data.RepositoryContract;
+using OneCore.Web.Filter;
 
 namespace OneCore.Web
 {
@@ -30,10 +32,17 @@ namespace OneCore.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Token de seguridad
+            services.AddAntiforgery(options => options.HeaderName = "RequestVerificationToken");
+
             services.AddScoped<IUnityOfWork, UnityOfWork>();
             services.AddScoped<IUserBusiness, UserBusiness>();
-            services.AddMvc()
-                .AddJsonOptions(options =>
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new GlobalFilter());
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            })
+            .AddJsonOptions(options =>
             {
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
@@ -75,7 +84,7 @@ namespace OneCore.Web
             }
 
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

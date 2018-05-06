@@ -1,60 +1,37 @@
 ﻿(() => {
     'use strict';
 
-    var app = angular.module("app");
+    angular.post = function (path, params, method) {
+        method = method || "post"; // Set method to post by default if not specified.
 
-    app.directive("email", ["defaultErrorMessageResolver", function (defaultErrorMessageResolver) {
-        defaultErrorMessageResolver.getErrorMessages().then(function (errorMessages) {
-            errorMessages['email'] = 'El correo no tiene el formato correcto';
-        });
+        // The rest of this code assumes you are not using a library.
+        // It can be made less wordy if you use one.
+        var form = document.createElement("form");
+        form.setAttribute("method", method);
+        form.setAttribute("action", path);
 
-        return {
-            restrict: 'A',
-            require: 'ngModel',
-            scope: false,
-            link: function (scope, element, attributes, ngModel) {
-                ngModel.$validators.email = function (modelValue) {
-                    if (!modelValue)
-                        return true;
+        for (var key in params) {
+            if (params.hasOwnProperty(key)) {
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "hidden");
+                hiddenField.setAttribute("name", key);
+                hiddenField.setAttribute("value", params[key]);
 
-                    var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{1,7}))$/;
-
-                    return regex.test(modelValue);
-                };
-
-                function parseEmail(text) {
-
-                    if (text) {
-
-                        var transformedInput = text.toLowerCase();
-
-                        //normalize el texto quitando los acentos
-                        transformedInput = normalize(transformedInput);
-
-                        //remueve cualquier caracter especial
-                        transformedInput = transformedInput.replace(/[^a-z0-9\s\.\-\_\@]+/g, '');
-
-                        if (transformedInput !== text) {
-                            ngModel.$setViewValue(transformedInput);
-                            ngModel.$render();
-                        }
-                        return transformedInput;
-                    }
-                    return text;
-                }
-
-                ngModel.$parsers.push(parseEmail);
-
-                element.bind("blur", function () {
-                    var ele = angular.element(this);
-                    var currentValue = ele.val();
-                    if (currentValue) {
-                        ele.val(currentValue.trim());
-                    }
-                });
+                form.appendChild(hiddenField);
             }
-        };
+        }
+        //add xsrf
+        var input = document.getElementById("XsrfRequestToken");
+        if (input) {
+            var aft = document.createElement("input");
+            aft.setAttribute("type", "hidden");
+            aft.setAttribute("name", "__RequestVerificationToken");
+            aft.setAttribute("value", input.value);
+            form.appendChild(aft);
+        }
+        document.body.appendChild(form);
+        form.submit();
 
-    }]);
+    };
 
 })();

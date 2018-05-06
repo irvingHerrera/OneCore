@@ -1,0 +1,65 @@
+﻿
+<div class="row mt-3">
+    <div class="col">
+        <h3>Nuevo Usuario</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <form name="formAddUser" novalidate></form>
+        <div class="form-group row">
+            <div class="col-sm-12 col-md-6 mb-3">
+                <label for="textUser">Usuario</label>
+                <input type="text" class="form-control" placeholder="User" name="user" id="textUser">
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <label for="txtEmail">Correo</label>
+                <input type="text" class="form-control" placeholder="Correo" name="email" id="txtEmail">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12 col-md-6 mb-3">
+                <label for="textPass">Contraseña</label>
+                <input type="password" class="form-control" placeholder="Contraseña" name="textPass" id="textPass">
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <label for="textPassConfirm">Contraseña</label>
+                <input type="password" class="form-control" placeholder="Confirmar contraseña" name="textPassConfirm" id="textPassConfirm">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <label class="mb-3">Status</label>
+                <br />
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="checkActive" name="checkStatus" class="custom-control-input"
+                           data-ng-click="validarStatus(@((int)Status.Active))">
+                    <label class="custom-control-label" for="checkActive">Activo</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline mb-3">
+                    <input type="radio" id="checkInactive" name="checkStatus" class="custom-control-input"
+                           data-ng-click="validarStatus(@((int)Status.Inactive))">
+                    <label class="custom-control-label" for="checkInactive">Inactivo</label>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <label class="mb-3">Genero</label>
+                <br />
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="checkMan" name="checkSex" class="custom-control-input"
+                           data-ng-click="validarGender(@((int)Gender.Male))">
+                    <label class="custom-control-label" for="checkMan">Hombre</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline mb-3">
+                    <input type="radio" id="checkWoman" name="checkSex" class="custom-control-input"
+                           data-ng-click="validarGender(@((int)Gender.Female))">
+                    <label class="custom-control-label" for="checkWoman">Mujer</label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

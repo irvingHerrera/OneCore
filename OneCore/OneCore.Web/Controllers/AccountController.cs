@@ -36,9 +36,9 @@ namespace OneCore.Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> LoginUser(UserViewModel user)
+        public async Task<IActionResult> LoginUser(UserViewModel model)
         {
-            var result = await userBusiness.Login(user);
+            var result = userBusiness.Login(model);
 
             if (result.Success)
             {

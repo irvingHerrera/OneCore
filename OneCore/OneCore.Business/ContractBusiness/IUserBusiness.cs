@@ -8,9 +8,9 @@ namespace OneCore.Business.ContractBusiness
     {
         Task<ResponseViewModel<UserViewModel>> Add(UserViewModel user);
         Task<ResponseViewModel<UserViewModel>> Get(int id);
-        Task<ResponseViewModel<List<UserViewModel>>> GetAll();
+        ResponseViewModel<List<UserViewModel>> GetAll();
         Task<ResponseViewModel<UserViewModel>> Delete(int id);
         Task<ResponseViewModel<UserViewModel>> Update(UserViewModel user);
-        Task<ResponseViewModel<UserViewModel>> Login(UserViewModel user);
+        ResponseViewModel<UserViewModel> Login(UserViewModel user);
     }
 }

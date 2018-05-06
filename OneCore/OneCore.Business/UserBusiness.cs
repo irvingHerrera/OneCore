@@ -125,9 +125,9 @@ namespace OneCore.Business
             return result;
         }
 
-        public async Task<ResponseViewModel<List<UserViewModel>>> GetAll()
+        public ResponseViewModel<List<UserViewModel>> GetAll()
         {
-            var listUser = await unityOfWork.User.GetAllAsync();
+            var listUser = unityOfWork.User.GetAllAsync();
             var result = new ResponseViewModel<List<UserViewModel>>();
             try
             {
@@ -145,9 +145,9 @@ namespace OneCore.Business
             return result;
         }
 
-        public async Task<ResponseViewModel<UserViewModel>> Login(UserViewModel user)
+        public ResponseViewModel<UserViewModel> Login(UserViewModel user)
         {
-            var listUser = await unityOfWork.User.GetAllAsync();
+            var listUser = unityOfWork.User.GetAllAsync();
 
             var result = new ResponseViewModel<UserViewModel>();
 
@@ -162,8 +162,6 @@ namespace OneCore.Business
                 result.Message = "Bienvenido";
                 result.Success = true;
                 result.Objeto = userViewModel;
-
-                return result;
             }
             else
             {
@@ -172,7 +170,7 @@ namespace OneCore.Business
             }
                 
 
-            return null;
+            return result;
         }
 
         public async Task<ResponseViewModel<UserViewModel>> Update(UserViewModel user)

@@ -30,10 +30,10 @@ namespace OneCore.Data.Repository
             return await dbset.FindAsync(id);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public IEnumerable<TEntity> GetAllAsync()
         {
             IQueryable<TEntity> query = dbset;
-            return await query.ToListAsync();
+            return query.ToList();
         }
 
         public void Remove(TEntity entity)

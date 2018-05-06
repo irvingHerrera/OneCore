@@ -12,6 +12,7 @@
         var baseUrl = "/Account/";
 
         this.login = (model) => {
+            console.log(model);
             return $http({
                 method: "get",
                 params: model,

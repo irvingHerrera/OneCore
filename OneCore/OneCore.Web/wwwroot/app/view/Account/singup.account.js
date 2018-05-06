@@ -38,7 +38,6 @@
         };
 
         vm.registry = () => {
-            console.log("vm.modelRegistry", vm.modelRegistry);
             $accountService.registry(vm.modelRegistry)
                 .then((data) => {
                     console.log(data.data);

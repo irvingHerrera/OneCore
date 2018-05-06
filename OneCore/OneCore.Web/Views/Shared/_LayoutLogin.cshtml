@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -11,6 +19,7 @@
 
 </head>
 <body data-ng-app="app">
+    <input type="hidden" id="XsrfRequestToken" value="@GetAntiXsrfRequestToken()" />
     <div class="container body-content">
         @RenderBody()
     </div>
@@ -18,6 +27,7 @@
     <script src="~/js/site.min.js"></script>
     <script src="~/app/app.module.js"></script>
     <script src="~/app/app.directives.js"></script>
+    <script src="~/app/app.tools.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
