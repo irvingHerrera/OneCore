@@ -11,11 +11,12 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userSystem" Type="varchar" MaxLength="7" />
-          <Property Name="email" Type="varchar" MaxLength="15" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
           <Property Name="password" Type="varchar" MaxLength="10" />
           <Property Name="status" Type="bit" />
           <Property Name="sexo" Type="bit" />
           <Property Name="creationDate" Type="date" />
+          <Property Name="erased" Type="bit" />
         </EntityType>
         <EntityContainer Name="OneCoreModelStoreContainer">
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -33,11 +34,12 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="userSystem" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="Boolean" />
           <Property Name="sexo" Type="Boolean" />
           <Property Name="creationDate" Type="DateTime" Precision="0" />
+          <Property Name="erased" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -48,6 +50,7 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="OneCoreModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="erased" ColumnName="erased" />
                 <ScalarProperty Name="creationDate" ColumnName="creationDate" />
                 <ScalarProperty Name="sexo" ColumnName="sexo" />
                 <ScalarProperty Name="status" ColumnName="status" />

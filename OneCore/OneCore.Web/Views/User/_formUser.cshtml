@@ -5,61 +5,102 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row mb-5">
     <div class="col">
-        <form name="formAddUser" novalidate></form>
-        <div class="form-group row">
-            <div class="col-sm-12 col-md-6 mb-3">
-                <label for="textUser">Usuario</label>
-                <input type="text" class="form-control" placeholder="User" name="user" id="textUser">
+        <form name="formAddUser" novalidate data-ng-submit="newUser()">
+            <div class="form-group row">
+                <div class="col-sm-12 col-md-6 mb-3">
+                    <input hidden required data-ng-model="modelAddUser.CheckGender" />
+                    <input hidden required data-ng-model="modelAddUser.CheckStatus" />
+                    <label for="textUser">Usuario</label>
+                    <input type="text" class="form-control"
+                           placeholder="Usuario" name="user" id="textUser"
+                           required autofocus
+                           data-ng-minlength="5"
+                           data-ng-maxlength="7"
+                           data-ng-model="modelAddUser.User">
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <label for="txtEmail">Correo</label>
+                    <input type="text" class="form-control"
+                           placeholder="Correo" name="email" id="txtEmail"
+                           required
+                           data-email
+                           data-ng-minlength="5"
+                           data-ng-model="modelAddUser.Email">
+                </div>
             </div>
-            <div class="col-sm-12 col-md-6">
-                <label for="txtEmail">Correo</label>
-                <input type="text" class="form-control" placeholder="Correo" name="email" id="txtEmail">
-            </div>
-        </div>
 
-        <div class="form-group row">
-            <div class="col-sm-12 col-md-6 mb-3">
-                <label for="textPass">Contraseña</label>
-                <input type="password" class="form-control" placeholder="Contraseña" name="textPass" id="textPass">
+            <div class="form-group row">
+                <div class="col-sm-12 col-md-6 mb-3">
+                    <label for="textPass">Contraseña</label>
+                    <input type="password" class="form-control"
+                           placeholder="Contraseña" name="textPass" id="textPass"
+                           required
+                           data-ng-minlength="5"
+                           data-ng-maxlength="10"
+                           data-password
+                           data-ng-model="modelAddUser.Password">
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <label for="textPassConfirm">Contraseña</label>
+                    <input type="password" class="form-control"
+                           placeholder="Confirmar contraseña"
+                           name="textPassConfirm" id="textPassConfirm"
+                           required
+                           data-ng-minlength="5"
+                           data-ng-maxlength="10"
+                           data-password
+                           data-ng-model="modelAddUser.ConfirmPassword">
+                </div>
             </div>
-            <div class="col-sm-12 col-md-6">
-                <label for="textPassConfirm">Contraseña</label>
-                <input type="password" class="form-control" placeholder="Confirmar contraseña" name="textPassConfirm" id="textPassConfirm">
-            </div>
-        </div>
+            <span data-ng-cloak data-ng-if="modelAddUser.isPasswordValid"
+                  class="has-error error-msg mb-1" style="display:block;color:red">Las contraseñas deben ser iguales</span>
 
-        <div class="row">
-            <div class="col-sm-12 col-md-6">
-                <label class="mb-3">Status</label>
-                <br />
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="checkActive" name="checkStatus" class="custom-control-input"
-                           data-ng-click="validarStatus(@((int)Status.Active))">
-                    <label class="custom-control-label" for="checkActive">Activo</label>
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <label class="mb-3">Status</label>
+                    <br />
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="checkActive" name="checkStatus" class="custom-control-input"
+                               data-ng-click="validarStatus(@((int)Status.Active))">
+                        <label class="custom-control-label" for="checkActive">Activo</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline mb-3">
+                        <input type="radio" id="checkInactive" name="checkStatus" class="custom-control-input"
+                               data-ng-click="validarStatus(@((int)Status.Inactive))">
+                        <label class="custom-control-label" for="checkInactive">Inactivo</label>
+                    </div>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline mb-3">
-                    <input type="radio" id="checkInactive" name="checkStatus" class="custom-control-input"
-                           data-ng-click="validarStatus(@((int)Status.Inactive))">
-                    <label class="custom-control-label" for="checkInactive">Inactivo</label>
+                <div class="col-sm-12 col-md-6">
+                    <label class="mb-3">Genero</label>
+                    <br />
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="checkMan" name="checkSex" class="custom-control-input"
+                               data-ng-disabled="modelUser.edit"
+                               data-ng-click="validarGender(@((int)Gender.Male))">
+                        <label class="custom-control-label" for="checkMan">Hombre</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline mb-3">
+                        <input type="radio" id="checkWoman" name="checkSex" class="custom-control-input"
+                               data-ng-disabled="modelUser.edit"
+                               data-ng-click="validarGender(@((int)Gender.Female))">
+                        <label class="custom-control-label" for="checkWoman">Mujer</label>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-6">
-                <label class="mb-3">Genero</label>
-                <br />
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="checkMan" name="checkSex" class="custom-control-input"
-                           data-ng-click="validarGender(@((int)Gender.Male))">
-                    <label class="custom-control-label" for="checkMan">Hombre</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline mb-3">
-                    <input type="radio" id="checkWoman" name="checkSex" class="custom-control-input"
-                           data-ng-click="validarGender(@((int)Gender.Female))">
-                    <label class="custom-control-label" for="checkWoman">Mujer</label>
-                </div>
-            </div>
-        </div>
 
+            <div class="row justify-content-end">
+                <div class="col-12 col-sm-9 col-md-2 mb-3">
+                    <button class="btn btn-primary btn-block" type="submit"
+                            data-ng-disabled="!formAddUser.$valid">
+                        Aceptar
+                    </button>
+                </div>
+                <div class="col-12 col-sm-9 col-md-2">
+                    <button class="btn btn-default btn-block" type="button" data-ng-click="cancel()">Cancelar</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>

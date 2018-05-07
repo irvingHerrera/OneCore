@@ -1,6 +1,6 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 100px;
 }
 
 /* Wrapping element */
@@ -32,4 +32,14 @@
     .carousel-caption {
         display: none;
     }
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+
+
+.has-error .error-msg {
+    color: red;
 }

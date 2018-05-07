@@ -48,6 +48,3 @@ body {
         border-top-right-radius: 0;
     }
 
-.has-error .error-msg {
-    color:red;
-}

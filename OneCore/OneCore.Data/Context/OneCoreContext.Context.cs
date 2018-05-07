@@ -14,15 +14,15 @@ namespace OneCore.Data.Context
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class OneCoreEntities : Microsoft.EntityFrameworkCore.DbContext
     {
         public OneCoreEntities(DbContextOptions<OneCoreEntities> options)
             : base(options)
         {
         }
-   
-    
+
+
         public virtual Microsoft.EntityFrameworkCore.DbSet<User> User { get; set; }
     }
 }

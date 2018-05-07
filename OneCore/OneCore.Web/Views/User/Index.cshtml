@@ -3,18 +3,80 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="row">
+<div class="row mt-4 mb-2">
     <div class="col-12">
         <h2>Bienvenido</h2>
     </div>
 </div>
 
 
-<div class="row">
+<div class="row" data-ng-controller="index-home">
     <div class="col-12">
-        @{Html.RenderPartial("_FormUser");}
+        <div class="row" data-ng-cloak data-ng-show="modelUser.showForm">
+            <div class="col-12">
+                @{Html.RenderPartial("_FormUser");}
+            </div>
+        </div>
+
+        <div  class="row mb-3" data-ng-init="getAll()">
+            <div class="col-12 table-responsive" data-ng-cloak  data-ng-show="modelUser">
+                <table id="tableUser" class="display ">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th class="text-center">Usuario</th>
+                            <th class="text-center">Correo</th>
+                            <th class="text-center">Genero</th>
+                            <th class="text-center">Estatus</th>
+                            <th class="text-center">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="user in modelUser">
+                            <td data-ng-bind="user.Id"></td>
+                            <td data-ng-bind="user.User"></td>
+                            <td data-ng-bind="user.Email"></td>
+                            <td data-ng-bind="user.Gender == 0 ? 'Hombre' : 'Mujer'"></td>
+                            <td data-ng-bind="user.Status == 0 ? 'Si' : 'No'"></td>
+                            <td class="text-center">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <i class="fas fa-plus-circle cursor-pointer text-success"
+                                           data-toggle="tooltip" data-placement="top" title="Nuevo usuarios"
+                                           data-ng-click="addUser()"></i>
+                                    </div>
+                                    <div class="col-4">
+                                        <i class="far fa-edit cursor-pointer text-primary"
+                                           data-toggle="tooltip" data-placement="top" title="Editar usuario"
+                                           data-ng-click="editUser(user.Id)"></i>
+                                    </div>
+                                    <div class="col-4">
+                                        
+                                        <i class="far fa-trash-alt cursor-pointer text-danger"
+                                           data-toggle="tooltip" data-placement="top" title="Eliminar usuarios"
+                                           data-ng-click="deleteUser(user.Id)"></i>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
 
+@section Scripts{
+    <script src="~/app/service/app.userService.js"></script>
+    <script src="~/app/service/app.accountService.js"></script>
+    <script src="~/app/view/Home/index.home.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            
+        });
+
+    </script>
+}
 

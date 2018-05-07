@@ -54,7 +54,7 @@
                     }
                     else {
                         vm.$confirm({
-                            title: "Registro CAP",
+                            title: "Registro OneCore",
                             type: 'blue',
                             confirm: true,
                             content: data.data.Message,

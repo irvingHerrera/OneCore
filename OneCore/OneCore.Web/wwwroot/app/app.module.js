@@ -4,7 +4,7 @@
 
     angular.module('app', [
         'jcs-autoValidate',
-        'cp.ngConfirm',
+        'cp.ngConfirm'
     ]);
 
     var app = angular.module("app")
@@ -293,7 +293,7 @@
                                 },
                                 cancel: {
                                     text: option.cancelText || "Cancelar",
-                                    btnClass: "btn btn-simple color-blue",
+                                    btnClass: "btn btn-info",
                                     action: option.cancel
                                 }
                             }

@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,6 +15,10 @@
 
     <link href="~/css/site.min.css" rel="stylesheet" />
     <link href="~/css/lib.min.css" rel="stylesheet" />
+    <link href="~/css/fontawesome/web-fonts-with-css/css/fontawesome-all.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+
 
 </head>
 <body data-ng-app="app">
@@ -40,20 +52,30 @@
         </div>
     </nav>
     <div class="container body-content">
+        <input type="hidden" id="XsrfRequestToken" value="@GetAntiXsrfRequestToken()" />
         @RenderBody()
-        <div class="fixed-bottom">
-            <hr />
+        <div class="fixed-bottom text-white" style="height:30px; background-color:black;">
             <footer>
-                <p>&copy; 2018 - OneCore</p>
+                <p class="mb-0">&copy; 2018 - OneCore</p>
             </footer>
         </div>
     </div>
 
     <script src="~/js/lib.min.js"></script>
+    <script src="~/js/plugin/popper/popper.min.js"></script>
     <script src="~/js/site.min.js"></script>
     <script src="~/app/app.module.js"></script>
     <script src="~/app/app.directives.js"></script>
     <script src="~/app/app.tools.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
+
+    <script>
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>

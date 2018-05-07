@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\css\fontawesome\" />
     <Folder Include="wwwroot\js\plugin\angular-auto-validate\" />
   </ItemGroup>
 

@@ -21,5 +21,6 @@ namespace OneCore.Data.Entities
         public Nullable<bool> status { get; set; }
         public Nullable<bool> sexo { get; set; }
         public Nullable<System.DateTime> creationDate { get; set; }
+        public Nullable<bool> erased { get; set; }
     }
 }

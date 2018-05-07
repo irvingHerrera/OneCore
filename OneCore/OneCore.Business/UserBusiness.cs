@@ -1,4 +1,5 @@
 ﻿using OneCore.Business.ContractBusiness;
+using OneCore.Core.Helper;
 using OneCore.Core.ViewModel;
 using OneCore.Data.Entities;
 using OneCore.Data.RepositoryContract;
@@ -21,7 +22,7 @@ namespace OneCore.Business
             {
                 Id = user.id,
                 User = user.userSystem,
-                Password = user.password,
+                Password = Encrypt.DecryptString(user.password),
                 CreationDate = user.creationDate ?? DateTime.Now,
                 Email = user.email,
                 Gender = user.sexo.Value ? Core.Enum.Gender.Male : Core.Enum.Gender.Female,
@@ -35,12 +36,19 @@ namespace OneCore.Business
             {
                 id = viewModel.Id,
                 userSystem = viewModel.User,
-                password = viewModel.Password,
+                password = Encrypt.EncryptString(viewModel.Password),
                 creationDate = DateTime.Now,
                 email = viewModel.Email,
                 sexo = viewModel.Gender == Core.Enum.Gender.Male ? true : false,
                 status = viewModel.Status == Core.Enum.Status.Active ? true : false,
             };
+        }
+
+        private bool ValidateUser(UserViewModel viewModel)
+        {
+            var lstUser = unityOfWork.User.GetAllAsync();
+            lstUser = lstUser.Where(u => u.erased == false);
+            return lstUser.Any(u => u.userSystem.Equals(viewModel.User) || u.email.Equals(viewModel.Email));
         }
 
         #endregion
@@ -56,13 +64,20 @@ namespace OneCore.Business
 
             try
             {
-                var userModel = GetModel(user);
+                if (ValidateUser(user)) {
+                    result.Message = "Ya se encuentra un usuario registrado con los mismos datos";
+                    result.Success = false;
+                    result.Objeto = user;
+                    return result;
+                }
 
+                var userModel = GetModel(user);
+                userModel.erased = false;
                 unityOfWork.User.Add(userModel);
 
                 if (await unityOfWork.SaveChangesAsync() == 1)
                 {
-                    result.Message = "Se ha registrado exitosamente, ya puede iniciar sesión";
+                    result.Message = "Se ha registrado exitosamente";
                     result.Success = true;
                     result.Objeto = user;
                 }
@@ -88,16 +103,17 @@ namespace OneCore.Business
             var result = new ResponseViewModel<UserViewModel>();
 
             var user = await unityOfWork.User.GetAsync(id);
-            unityOfWork.User.Remove(user);
+            user.erased = true;
+            unityOfWork.User.Update(user);
 
             if (await unityOfWork.SaveChangesAsync() == 1)
             {
-                result.Message = "";
+                result.Message = "El usuario fue eliminado exitosamente";
                 result.Success = true;
             }
             else
             {
-                result.Message = "";
+                result.Message = "Ocurrió un problema al eliminar el usuario";
                 result.Success = false;
             }
 
@@ -110,15 +126,26 @@ namespace OneCore.Business
             try
             {
                 var user = await unityOfWork.User.GetAsync(id);
-                var userViewModel = GetViewMode(user);
 
-                result.Message = "";
-                result.Success = true;
-                result.Objeto = userViewModel;
+                if (user != null)
+                {
+                    var userViewModel = GetViewMode(user);
+
+                    result.Message = "";
+                    result.Success = true;
+                    result.Objeto = userViewModel;
+                }
+                else
+                {
+                    result.Message = "Ocurrió un problema al consultar el usuario";
+                    result.Success = false;
+                }
+
+               
             }
             catch (Exception ex)
             {
-                result.Message = ex.Message;
+                result.Message = "Ocurrió un problema al consultar el usuario";
                 result.Success = false;
             }
 
@@ -128,6 +155,7 @@ namespace OneCore.Business
         public ResponseViewModel<List<UserViewModel>> GetAll()
         {
             var listUser = unityOfWork.User.GetAllAsync();
+            listUser = listUser.Where(u => u.erased == false);
             var result = new ResponseViewModel<List<UserViewModel>>();
             try
             {
@@ -148,14 +176,15 @@ namespace OneCore.Business
         public ResponseViewModel<UserViewModel> Login(UserViewModel user)
         {
             var listUser = unityOfWork.User.GetAllAsync();
-
+            listUser = listUser.Where(u => u.erased == false);
             var result = new ResponseViewModel<UserViewModel>();
 
-            if (listUser.Any(lst => lst.userSystem.Equals(user.User) && lst.password.Equals(user.Password)))
+            if (listUser.Any(lst => lst.userSystem.Equals(user.User) && 
+                                    Encrypt.DecryptString(lst.password).Equals(user.Password)))
             {
                 var userEntiti = listUser
                                 .FirstOrDefault(lst => lst.userSystem.Equals(user.User)
-                                                && lst.password.Equals(user.Password));
+                                                && Encrypt.DecryptString(lst.password).Equals(user.Password));
 
                 var userViewModel = GetViewMode(userEntiti);
 
@@ -177,7 +206,7 @@ namespace OneCore.Business
         {
             var userViewModel = GetModel(user);
             var result = new ResponseViewModel<UserViewModel>();
-
+            userViewModel.erased = false;
             unityOfWork.User.Update(userViewModel);
 
             if (await unityOfWork.SaveChangesAsync() == 1)
