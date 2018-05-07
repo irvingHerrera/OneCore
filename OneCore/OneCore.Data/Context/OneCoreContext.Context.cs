@@ -11,9 +11,6 @@ namespace OneCore.Data.Context
 {
     using Microsoft.EntityFrameworkCore;
     using OneCore.Data.Entities;
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
 
     public partial class OneCoreEntities : Microsoft.EntityFrameworkCore.DbContext
     {
